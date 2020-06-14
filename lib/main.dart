@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import './task.dart';
-import './home.dart';
+import 'package:reminder_app/allTask.dart';
+
+import './addTask.dart';
 
 void main() => runApp(MyApp());
 
@@ -14,12 +15,14 @@ class MyApp extends StatelessWidget {
       
         primarySwatch: Colors.blue,
       ),
-       home: HomePage(),
-    
+     // home: AllTaskPage(),
+
+      
       routes: {
-       // '/': (BuildContext context) => HomePage(),
-        '/task': (BuildContext context) => TaskPage(),
+        '/':(BuildContext context) => AllTaskPage(),
+        '/addTask': (BuildContext context) => AddTaskPage(),
       },
+     
     );
   }
 }
