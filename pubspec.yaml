@@ -21,6 +21,7 @@ dependencies:
   flutter:
     sdk: flutter
   datetime_picker_formfield: ^1.0.0
+  flutter_datetime_formfield: ^0.1.2
 
 
   # The following adds the Cupertino Icons font to your application.
