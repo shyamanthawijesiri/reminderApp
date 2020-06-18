@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
-import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter_datetime_formfield/flutter_datetime_formfield.dart';
+import './database.dart';
+
+import 'dart:async';
+
+import 'package:path/path.dart';
+import 'package:reminder_app/database.dart';
+import 'package:sqflite/sqflite.dart';
 
 class AddTaskPage extends StatefulWidget {
   final initialDateTime = DateTime.now();
@@ -17,7 +22,7 @@ class _AddTaskState extends State<AddTaskPage> {
   final Map<String, dynamic> _taskData = {
     'title': null,
     'description': null,
-    'dataTime': null
+    'dateTime': null
   };
 
  // final DateTime initialDateTime;
@@ -35,7 +40,9 @@ class _AddTaskState extends State<AddTaskPage> {
         }
       },
       decoration: InputDecoration(labelText: 'Task title'),
-      onSaved: (String value) {  _taskData['title'] = value;},
+      onSaved: (String value) { 
+         _taskData['title'] = value;
+         },
     );
   }
 
@@ -66,8 +73,11 @@ class _AddTaskState extends State<AddTaskPage> {
       _formKey.currentState.validate();
       _formKey.currentState.save();
       print(_taskData);
-       Navigator.pushReplacementNamed(context, '/');
+     //  Navigator.pushReplacementNamed(context, '/');
+     
   }
+
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -78,10 +88,10 @@ class _AddTaskState extends State<AddTaskPage> {
       ),
       body: Container(
         margin: EdgeInsets.all(30.0),
-        child: ListView(children: <Widget>[
+        child: 
           Form(
             key: _formKey,
-            child: Column(children: <Widget>[
+            child: ListView(children: <Widget>[
               _taskTitleFormField(),
               _taskDescriptionFormField(),
               _taskDateTimePicker(),
@@ -94,8 +104,10 @@ class _AddTaskState extends State<AddTaskPage> {
               )
             ]),
           ),
-        ]),
+        
       ),
     );
   }
+
+  
 }
