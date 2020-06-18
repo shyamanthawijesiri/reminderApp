@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_datetime_formfield/flutter_datetime_formfield.dart';
+import 'package:reminder_app/taskModel.dart';
 import './database.dart';
+import 'package:intl/intl.dart';
 
 import 'dart:async';
 
@@ -11,6 +13,8 @@ import 'package:sqflite/sqflite.dart';
 
 class AddTaskPage extends StatefulWidget {
   final initialDateTime = DateTime.now();
+  DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
+
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -19,6 +23,13 @@ class AddTaskPage extends StatefulWidget {
 }
 
 class _AddTaskState extends State<AddTaskPage> {
+static DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
   final Map<String, dynamic> _taskData = {
     'title': null,
     'description': null,
@@ -65,7 +76,10 @@ class _AddTaskState extends State<AddTaskPage> {
         }
         return null;
       } ,
-      onSaved: (DateTime dateTime) => _taskData['dateTime'] = dateTime,
+      onSaved: (DateTime dateTime) { 
+        String dT = dateFormat.format(dateTime);
+        _taskData['dateTime'] = dT;
+        }
     );
   }
 
@@ -74,6 +88,14 @@ class _AddTaskState extends State<AddTaskPage> {
       _formKey.currentState.save();
       print(_taskData);
      //  Navigator.pushReplacementNamed(context, '/');
+     final newTask = Task(
+       title: _taskData['title'],
+       description: _taskData['description'],
+       dateTime: _taskData['dateTime']
+     );
+
+     DatabaseHelper.db.insertTask(newTask);
+     print(DatabaseHelper.db.tasks());
      
   }
 

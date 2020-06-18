@@ -8,7 +8,7 @@ class AllTaskPage extends StatelessWidget{
      appBar: AppBar(
         title: const Text('All Tasks'),
       ),
-      body: Center(child: Text("All Task"),),
+      body: Center(child: Text("all TAsk")),
        floatingActionButton: FloatingActionButton(
         onPressed: () {
            Navigator.pushReplacementNamed(context,'/addTask');

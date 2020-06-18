@@ -23,7 +23,7 @@ class DatabaseHelper {
     return await openDatabase(join(await getDatabasesPath(), 'task.db'),
         onCreate: (db, version) {
       return db.execute(
-        "CREATE TABLE tasks(id INTEGER PRIMARY KEY, title TEXT, description TEXT, dateTime TEXT)",
+        "CREATE TABLE tasks(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, description TEXT, dateTime TEXT)",
       );
     }, version: 1);
   }
@@ -46,7 +46,7 @@ class DatabaseHelper {
   });
 }
 
-Future<void> inserTask(Task task) async {
+Future<void> insertTask(Task task) async {
   final db = await database;
 
 
