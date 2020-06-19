@@ -23,27 +23,30 @@ class DatabaseHelper {
     return await openDatabase(join(await getDatabasesPath(), 'task.db'),
         onCreate: (db, version) {
       return db.execute(
-        "CREATE TABLE tasks(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, description TEXT, dateTime TEXT)",
+        "CREATE TABLE tasks(id INTEGER PRIMARY KEY AUTO_INCREMENT , title TEXT, description TEXT, dateTime TEXT)",
       );
     }, version: 1);
   }
 
-  Future<List<Task>> tasks() async {
-  // Get a reference to the database.
-  final db = await database;
+  tasks() async {
+  
+  final Database db = await database;
+   List<Map> maps = await db.query('tasks');
+  maps.forEach((row) => print(row));
+  // return List.generate(maps.length, (i) {
+  //   return Task(
+  //    // id: maps[i]['id'],
+  //     title: maps[i]['title'],
+  //     description: maps[i]['description'],
+  //     dateTime:maps[i]['dateTime'],
+  //   );
+  // });
+  
+}
 
-  // Query the table for all The Dogs.
-  final List<Map<String, dynamic>> maps = await db.query('tasks');
-
-  // Convert the List<Map<String, dynamic> into a List<Dog>.
-  return List.generate(maps.length, (i) {
-    return Task(
-      id: maps[i]['id'],
-      title: maps[i]['title'],
-      description: maps[i]['description'],
-      dateTime:maps[i]['dateTime']
-    );
-  });
+void foo() async {
+  final user = await tasks();
+  print(user);
 }
 
 Future<void> insertTask(Task task) async {

@@ -89,13 +89,18 @@ static DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
       print(_taskData);
      //  Navigator.pushReplacementNamed(context, '/');
      final newTask = Task(
+ 
        title: _taskData['title'],
        description: _taskData['description'],
        dateTime: _taskData['dateTime']
      );
+     print('hellooooooooooooo');
+     //print(newTask.toMap());
 
      DatabaseHelper.db.insertTask(newTask);
-     print(DatabaseHelper.db.tasks());
+     DatabaseHelper.db.tasks();
+
+     
      
   }
 
