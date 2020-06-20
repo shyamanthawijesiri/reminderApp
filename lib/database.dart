@@ -31,8 +31,8 @@ class DatabaseHelper {
   tasks() async {
   
   final Database db = await database;
-   List<Map> maps = await db.query('tasks');
-  maps.forEach((row) => print(row));
+   return List<Map> maps = await db.query('tasks');
+  //maps.forEach((row) => print(row));
   // return List.generate(maps.length, (i) {
   //   return Task(
   //    // id: maps[i]['id'],

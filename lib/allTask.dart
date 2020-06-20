@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:reminder_app/taskModel.dart';
 
 class AllTaskPage extends StatelessWidget{
   @override
@@ -8,7 +9,7 @@ class AllTaskPage extends StatelessWidget{
      appBar: AppBar(
         title: const Text('All Tasks'),
       ),
-      body: Center(child: Text("all TAsk")),
+      body: Task(),
        floatingActionButton: FloatingActionButton(
         onPressed: () {
            Navigator.pushReplacementNamed(context,'/addTask');
