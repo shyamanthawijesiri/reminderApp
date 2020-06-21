@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:reminder_app/taskModel.dart';
+import 'package:reminder_app/widget/task-widget.dart';
+import './database.dart';
 
 class AllTaskPage extends StatelessWidget{
+
+   final Future<List<Task>> _alltasks;
+   AllTaskPage(this._alltasks);
+ // AllTaskPage(this._tasks)
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -9,7 +15,7 @@ class AllTaskPage extends StatelessWidget{
      appBar: AppBar(
         title: const Text('All Tasks'),
       ),
-      body: Task(),
+      body: TaskDisplay(_alltasks),
        floatingActionButton: FloatingActionButton(
         onPressed: () {
            Navigator.pushReplacementNamed(context,'/addTask');

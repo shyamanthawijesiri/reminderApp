@@ -1,7 +1,7 @@
-import 'package:sqflite/sqflite.dart';
+
 
 class Task {
-  final String id;
+  final int id;
   final String title;
   final String description;
   final String dateTime;
@@ -18,5 +18,9 @@ class Task {
     };
   }
 
+ 
+
+ 
+  
  
 }

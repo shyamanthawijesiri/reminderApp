@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../taskModel.dart';
+
 class TaskCard extends StatelessWidget {
-  final Map<String, dynamic> tasks;
+  final List<Task> tasks;
   final int index;
   TaskCard(this.tasks, this.index);
   @override
@@ -12,7 +14,7 @@ class TaskCard extends StatelessWidget {
         child: Column(
       children: <Widget>[
         
-        Text(tasks['title']),
+       // Text(tasks['title']),
         
         ],
     ));

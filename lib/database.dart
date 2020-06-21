@@ -28,26 +28,41 @@ class DatabaseHelper {
     }, version: 1);
   }
 
-  tasks() async {
+//   tasks() async {
   
+//   final Database db = await database;
+//    List<Map> maps = await db.query('tasks');
+//    return maps;
+//   //maps.forEach((row) => print(row));
+//   // return List.generate(maps.length, (i) {
+//   //   return Task(
+//   //    // id: maps[i]['id'],
+//   //     title: maps[i]['title'],
+//   //     description: maps[i]['description'],
+//   //     dateTime:maps[i]['dateTime'],
+//   //   );
+//   // });
+  
+// }
+Future<List<Task>> tasks() async {
+  // Get a reference to the database.
   final Database db = await database;
-   return List<Map> maps = await db.query('tasks');
-  //maps.forEach((row) => print(row));
-  // return List.generate(maps.length, (i) {
-  //   return Task(
-  //    // id: maps[i]['id'],
-  //     title: maps[i]['title'],
-  //     description: maps[i]['description'],
-  //     dateTime:maps[i]['dateTime'],
-  //   );
-  // });
-  
+
+  // Query the table for all The Dogs.
+  final maps = await db.query('tasks');
+
+  // Convert the List<Map<String, dynamic> into a List<Dog>.
+  return List.generate(maps.length, (i) {
+    return Task(
+      id: maps[i]['id'],
+      title: maps[i]['title'],
+      description: maps[i]['description'],
+      dateTime: maps[i]['dateTime']
+    );
+  });
 }
 
-void foo() async {
-  final user = await tasks();
-  print(user);
-}
+
 
 Future<void> insertTask(Task task) async {
   final db = await database;

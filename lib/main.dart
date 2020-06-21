@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:reminder_app/allTask.dart';
+import 'package:reminder_app/database.dart';
 
 import './addTask.dart';
+import 'taskModel.dart';
 
-void main() => runApp(MyApp());
+void main(){
+WidgetsFlutterBinding.ensureInitialized();
+runApp(MyApp());
+} 
 
 // class MyApp extends StatefulWidget{
 //   @override
@@ -17,6 +22,7 @@ void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget{
   // This widget is the root of your application.
+  final Future<List<Task>> _allTask = DatabaseHelper.db.tasks();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -29,7 +35,7 @@ class MyApp extends StatelessWidget{
 
       
       routes: {
-        '/':(BuildContext context) => AllTaskPage(),
+        '/':(BuildContext context) => AllTaskPage(_allTask),
         '/addTask': (BuildContext context) => AddTaskPage(),
       },
      

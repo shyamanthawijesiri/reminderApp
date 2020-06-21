@@ -83,7 +83,7 @@ static DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
     );
   }
 
-  void _submitForm(){
+  void _submitForm() async{
       _formKey.currentState.validate();
       _formKey.currentState.save();
       print(_taskData);
@@ -98,7 +98,8 @@ static DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
      //print(newTask.toMap());
 
      DatabaseHelper.db.insertTask(newTask);
-     DatabaseHelper.db.tasks();
+    print(await DatabaseHelper.db.tasks());
+   
 
      
      
