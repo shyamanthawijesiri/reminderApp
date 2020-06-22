@@ -34,14 +34,19 @@ class TaskDisplay extends StatelessWidget{
          print(task[0].id);
          return Column(
            children: <Widget>[
-            
-             ListTile(
+             ExpansionTile(title: Text(task[index].title),
+             children:<Widget>[
+                ListTile(
                
-               title:Text(task[index].title) ,
-               subtitle: Text(task[index].description+"  "+ task[index].dateTime),
+               title:Text(task[index].description) ,
+               subtitle: Text(task[index].dateTime),
                
              ),
              Divider()
+             ]
+             )
+            
+            
            ],
 
          );
