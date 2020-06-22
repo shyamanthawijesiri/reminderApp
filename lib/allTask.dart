@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:reminder_app/taskModel.dart';
 import 'package:reminder_app/widget/task-widget.dart';
 import './database.dart';
+import 'addTask.dart';
 
 class AllTaskPage extends StatelessWidget{
 
@@ -18,7 +19,7 @@ class AllTaskPage extends StatelessWidget{
       body: TaskDisplay(_alltasks),
        floatingActionButton: FloatingActionButton(
         onPressed: () {
-           Navigator.pushReplacementNamed(context,'/addTask');
+           Navigator.push(context,MaterialPageRoute(builder: (BuildContext context)=>AddTaskPage()));
         },
        
         child: const Icon(Icons.add),

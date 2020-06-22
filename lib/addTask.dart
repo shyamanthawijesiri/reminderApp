@@ -5,11 +5,8 @@ import 'package:reminder_app/taskModel.dart';
 import './database.dart';
 import 'package:intl/intl.dart';
 
-import 'dart:async';
-
-import 'package:path/path.dart';
 import 'package:reminder_app/database.dart';
-import 'package:sqflite/sqflite.dart';
+import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 
 class AddTaskPage extends StatefulWidget {
   final initialDateTime = DateTime.now();
@@ -23,21 +20,21 @@ class AddTaskPage extends StatefulWidget {
 }
 
 class _AddTaskState extends State<AddTaskPage> {
-static DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
+  static DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
   }
+
   final Map<String, dynamic> _taskData = {
     'title': null,
     'description': null,
     'dateTime': null
   };
 
- // final DateTime initialDateTime;
-
+  // final DateTime initialDateTime;
 
   //AddTaskPage({this.initialDateTime});
 
@@ -51,9 +48,9 @@ static DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
         }
       },
       decoration: InputDecoration(labelText: 'Task title'),
-      onSaved: (String value) { 
-         _taskData['title'] = value;
-         },
+      onSaved: (String value) {
+        _taskData['title'] = value;
+      },
     );
   }
 
@@ -61,63 +58,56 @@ static DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
     return TextFormField(
       decoration: InputDecoration(labelText: 'Task Decription'),
       onSaved: (String value) => _taskData['description'] = value,
-       
-      
     );
   }
 
   Widget _taskDateTimePicker() {
     return DateTimeFormField(
-      initialValue: widget.initialDateTime,
-      label: "Date Time",
-      validator: (DateTime dateTime) {
-        if (dateTime == null) {
-          return "Date Time Required";
-        }
-        return null;
-      } ,
-      onSaved: (DateTime dateTime) { 
-        String dT = dateFormat.format(dateTime);
-        _taskData['dateTime'] = dT;
-        }
-    );
+        initialValue: widget.initialDateTime,
+        label: "Date Time",
+        validator: (DateTime dateTime) {
+          if (dateTime == null) {
+            return "Date Time Required";
+          }
+          return null;
+        },
+        onSaved: (DateTime dateTime) {
+          String dT = dateFormat.format(dateTime);
+          _taskData['dateTime'] = dT;
+        });
   }
 
-  void _submitForm() async{
-      _formKey.currentState.validate();
-      _formKey.currentState.save();
-      print(_taskData);
-     //  Navigator.pushReplacementNamed(context, '/');
-     final newTask = Task(
- 
-       title: _taskData['title'],
-       description: _taskData['description'],
-       dateTime: _taskData['dateTime']
-     );
-     print('hellooooooooooooo');
-     //print(newTask.toMap());
+  void _submitForm() {
+    _formKey.currentState.validate();
+    _formKey.currentState.save();
+    print(_taskData);
+    //  Navigator.pushReplacementNamed(context, '/');
+    final newTask = Task(
+        title: _taskData['title'],
+        description: _taskData['description'],
+        dateTime: _taskData['dateTime']);
+    print('hellooooooooooooo');
+    //FlutterRingtonePlayer.playAlarm();
+    //print(newTask.toMap());
 
-     DatabaseHelper.db.insertTask(newTask);
-    print(await DatabaseHelper.db.tasks());
-   
-
-     
-     
+    //DatabaseHelper.db.insertTask(newTask);
   }
-
- 
 
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Create a Tasks'),
-      ),
-      body: Container(
-        margin: EdgeInsets.all(30.0),
-        child: 
-          Form(
+    return WillPopScope(
+      onWillPop: () {
+        Navigator.pop(context, false);
+        return Future.value(false);
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Create a Tasks'),
+        ),
+        body: Container(
+          margin: EdgeInsets.all(30.0),
+          child: Form(
             key: _formKey,
             child: ListView(children: <Widget>[
               _taskTitleFormField(),
@@ -128,14 +118,14 @@ static DateFormat dateFormat = DateFormat("yyyy-MM-dd HH:mm:ss");
                 child: Text('Save'),
                 color: Theme.of(context).accentColor,
                 textColor: Colors.white,
-                onPressed: _submitForm,
+                onPressed: () {
+                  FlutterRingtonePlayer.playNotification();
+                },
               )
             ]),
           ),
-        
+        ),
       ),
     );
   }
-
-  
 }
